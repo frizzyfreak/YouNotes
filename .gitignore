@@ -1,0 +1,5 @@
+# Ignore the secret keys file
+.env
+
+# Ignore the virtual environment folder
+venv/
