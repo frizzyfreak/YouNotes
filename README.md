@@ -14,9 +14,10 @@ YouNotes is an agentic study assistant powered by Gemini AI. It allows you to tu
 - **Quiz Creation**: Generates a 5-question multiple-choice quiz based on the study guide.
 
 **Technology Stack**:
-- **Python**: Core programming language.
+- **Python**: Core programming language(Python)
 - **Streamlit**: Interactive web app framework.
 - **LangChain**: Framework for building agentic AI workflows.
+- **LangGraph**:For DAG and node creation.
 - **Gemini AI**: Language model for text generation.
 - **YouTube Transcript API**: Extracts transcripts from YouTube videos.
 - **PyPDF2**: Extracts text from PDF files.
@@ -100,11 +101,13 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ## Contact
 
-Project Creator: Sharon Madan - [GitHub Profile](https://github.com/sharonn-madan)
+Project Creators: 
+Hemant Dubey - [gitHub Profile](https://github.com/frizzyfreak)
+Sharon Madan - [GitHub Profile](https://github.com/sharonn-madan)
 
-Project Link: [YouNotes](https://github.com/sharonn-madan/YouNotes)
+Project Link: [YouNotes](https://github.com/frizzyfreak/YouNotes)
 
 ---
 
-Thank you for using the YouNotes! 
+Thank you for using YouNotes! 
 
