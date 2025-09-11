@@ -12,7 +12,7 @@ st.set_page_config(
 )
 
 # --- Custom CSS for Styling ---
-# This CSS will help us create the card-like appearance and match the screenshot's style.
+
 st.markdown("""
 <style>
     /* Card-like containers created with st.container(border=True) have a default padding.
