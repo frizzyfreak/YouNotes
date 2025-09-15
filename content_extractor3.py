@@ -3,6 +3,12 @@ import PyPDF2
 import logging
 import re
 
+# OCR dependencies
+import pytesseract
+from PIL import Image
+import io
+from pdf2image import convert_from_bytes
+
 # Set up logging for better debugging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -38,6 +44,25 @@ def get_pdf_text(pdf_file):
         return text, None
     except Exception as e:
         error_message = f"Error extracting PDF text: {e}"
+        logging.error(error_message)
+        return None, error_message
+
+def get_pdf_text_ocr(pdf_file):
+    """
+    Extracts text from scanned PDF using OCR (pytesseract).
+    Returns the text or an error message.
+    """
+    try:
+        # Convert PDF pages to images
+        pdf_bytes = pdf_file.read()
+        images = convert_from_bytes(pdf_bytes)
+        ocr_text = ""
+        for img in images:
+            ocr_text += pytesseract.image_to_string(img)
+        logging.info(f"Successfully extracted OCR text of length {len(ocr_text)}.")
+        return ocr_text, None
+    except Exception as e:
+        error_message = f"Error extracting OCR text from PDF: {e}"
         logging.error(error_message)
         return None, error_message
 

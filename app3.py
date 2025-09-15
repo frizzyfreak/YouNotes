@@ -1,5 +1,5 @@
 import streamlit as st
-from content_extractor3 import get_youtube_transcript, get_pdf_text
+from content_extractor3 import get_youtube_transcript, get_pdf_text, get_pdf_text_ocr
 # from study_agents import create_study_crew
 from study_agents3 import create_study_material
 import time
@@ -100,21 +100,29 @@ with col1:
                         st.session_state.error = err or "Transcript not found."
             
         with input_tab2:
-            MAX_FILE_SIZE_MB = 25
-            uploaded_file = st.file_uploader(
-                "Upload a PDF", 
-                type="pdf",
-                label_visibility="collapsed",
-                help=f"Max file size: {MAX_FILE_SIZE_MB} MB"
-            )
-            if uploaded_file:
-                if uploaded_file.size > MAX_FILE_SIZE_MB * 1024 * 1024:
-                    st.session_state.error = f"File exceeds {MAX_FILE_SIZE_MB}MB limit."
-                else:
-                    with st.spinner("Extracting text..."):
-                        text = get_pdf_text(uploaded_file)
-                        if err: st.session_state.error = err
-                        else: source_content = text
+                MAX_FILE_SIZE_MB = 25
+                uploaded_file = st.file_uploader(
+                    "Upload a PDF", 
+                    type="pdf",
+                    label_visibility="collapsed",
+                    help=f"Max file size: {MAX_FILE_SIZE_MB} MB"
+                )
+                pdf_mode = st.radio(
+                    "Choose PDF extraction mode:",
+                    ["Regular PDF (digitally created)", "OCR (scanned notes)"],
+                    help="Regular PDF: Use for digitally created PDFs (text selectable).\nOCR: Use for scanned notes or image-based PDFs (text not selectable)."
+                )
+                if uploaded_file:
+                    if uploaded_file.size > MAX_FILE_SIZE_MB * 1024 * 1024:
+                        st.session_state.error = f"File exceeds {MAX_FILE_SIZE_MB}MB limit."
+                    else:
+                        with st.spinner("Extracting text..."):
+                            if pdf_mode == "Regular PDF (digitally created)":
+                                text, err = get_pdf_text(uploaded_file)
+                            else:
+                                text, err = get_pdf_text_ocr(uploaded_file)
+                            if err: st.session_state.error = err
+                            else: source_content = text
 
         generate_button = st.button("Build Study Guide & Quiz")
 
