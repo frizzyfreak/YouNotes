@@ -52,10 +52,21 @@ def get_pdf_text_ocr(pdf_file):
     Extracts text from scanned PDF using OCR (pytesseract).
     Returns the text or an error message.
     """
+
     try:
         # Convert PDF pages to images
         pdf_bytes = pdf_file.read()
-        images = convert_from_bytes(pdf_bytes)
+        import os
+        poppler_path = None
+        if os.name == 'nt':  # Windows
+            custom_path = r'C:\Users\Hemant\Downloads\Release-25.07.0-0\poppler-25.07.0\Library\bin'
+            if os.path.exists(custom_path):
+                poppler_path = custom_path
+            # Set tesseract path for Windows
+            tess_path = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+            if os.path.exists(tess_path):
+                pytesseract.pytesseract.tesseract_cmd = tess_path
+        images = convert_from_bytes(pdf_bytes, poppler_path=poppler_path) if poppler_path else convert_from_bytes(pdf_bytes)
         ocr_text = ""
         for img in images:
             ocr_text += pytesseract.image_to_string(img)
@@ -65,4 +76,5 @@ def get_pdf_text_ocr(pdf_file):
         error_message = f"Error extracting OCR text from PDF: {e}"
         logging.error(error_message)
         return None, error_message
+
 

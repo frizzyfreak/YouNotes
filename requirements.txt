@@ -2,11 +2,14 @@ streamlit
 langchain-openai
 langchain-google-genai
 youtube-transcript-api
-pypdf2
+PyPDF2
 python-dotenv
 langchain-text-splitters
 langchain-google-genai
 pytube
 langgraph
 langchain
+pytesseract
+pdf2image
+Pillow
 
