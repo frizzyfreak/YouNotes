@@ -3,7 +3,7 @@
 YouNotes is an agentic study assistant powered by Gemini AI. It allows you to turn any YouTube video or PDF into a study guide and quiz in seconds. The application uses advanced AI techniques to chunk, summarize, synthesize, and generate quizzes from the provided content.
 
 ---
-
+DEPLOYED LINK : https://younotes.streamlit.app/
 ---
 
 ## Features
